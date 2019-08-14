@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Message Board</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>The Dojo Message Board</h1>
+            <hr>
+            <form action="/message" method="POST">
+                <h3>Name:<input type="text" name="name"></h3>
+                <h3>Message: <input type="text" name="content"></h3>
+                <h3><input id="button" type="submit" value="Post Message"></h3>
+            </form>
+            <% for (var m of messages) { %>
+            <h2 id="name">Name: <%= m.name %></h2>
+            <h2 id="message">Message: <%= m.content %> </h2>
+                <% for (var c of m.comments) { %>
+                    <h4>Name: <%= c.name %></h4>
+                    <h4>Comment: <%= c.content %></h4>
+                <% } %>
+                    <form action="/comment" method="POST">
+                    <h3>Name:<input type="text" name="name"></h3>
+                    <h3>Comment: <input type="text" name="content"></h3>
+                    <input type="hidden" id="message_id" name="message_id" value="<%= m._id %>">
+                    <h3><input id="button" type="submit" value="Post comment"></h3>
+                </form>
+            <% } %>
+        </div>
+    </body>
+</html>
